@@ -3,1949 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Sinacake • Premium</title>
+    <title>Sina Cake | Link in Bio</title>
+    
+    <!-- Memuat Tailwind CSS untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Memuat Font Quicksand agar tulisan terlihat bulat dan lucu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Memuat FontAwesome untuk ikon-ikon (lokasi, WA, IG, Share) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap');
-        
-        body { 
-            font-family: 'Poppins', system-ui, sans-serif; 
-            background: linear-gradient(135deg, #fceef5 0%, #f8e1eb 100%);
-        }
-        
-        .product-card { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .product-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgb(255 105 180 / 0.1), 0 8px 10px -6px rgb(255 105 180 / 0.1); 
-        }
-        
-        .catalog-card {
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        .catalog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            letter-spacing: -0.025em;
-        }
-
-        .modal {
-            animation: modalPopIn 0.2s ease-out forwards;
-        }
-
-        @keyframes modalPopIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .admin-badge {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        .cake-bg {
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #ffffff;
+            /* Polkadot Pattern Pink dengan opacity 15% */
             background-image: 
-                linear-gradient(rgba(255,105,180,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,105,180,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+                radial-gradient(rgba(255, 105, 180, 0.15) 15%, transparent 15%),
+                radial-gradient(rgba(255, 105, 180, 0.15) 15%, transparent 15%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        /* Container utama ala HP */
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: rgba(255, 255, 255, 0.85); /* Semi transparan agar polkadot tembus sedikit */
+            backdrop-filter: blur(2px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animasi Mengambang untuk Header */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Style khusus tombol agar terlihat membal/3D */
+        .btn-bouncy {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-bouncy:active {
+            transform: scale(0.96) translateY(4px);
+            box-shadow: 0 0px 0 transparent !important;
+        }
+
+        /* Animasi Pop-in untuk Modal/Pop-up */
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal-animate {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
     </style>
 </head>
-<body class="bg-pink-50">
-    <div class="max-w-md mx-auto min-h-screen bg-white shadow-2xl relative overflow-hidden">
+<body class="text-gray-700 antialiased selection:bg-pink-300 selection:text-white">
+
+    <div class="mobile-container pb-10">
         
-        <!-- Header -->
-        <div class="sticky top-0 bg-white/95 backdrop-blur-lg border-b border-pink-100 p-4 flex items-center justify-between z-50">
-            <div onclick="onHeaderClick()" class="flex items-center gap-3 cursor-pointer select-none">
-                <div class="w-11 h-11 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-birthday-cake text-white text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="font-extrabold text-3xl bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">Sinacake</h1>
-                    <p class="text-[10px] text-pink-400 -mt-1.5 tracking-[1px]">PREMIUM CATALOG</p>
-                </div>
+        <!-- Bagian Atas: Tombol Share -->
+        <div class="flex justify-end p-4 sticky top-0 z-10">
+            <button onclick="shareWebsite()" class="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center shadow-[0_4px_0_#d81b60] btn-bouncy hover:-translate-y-1" title="Bagikan Web">
+                <i class="fa-solid fa-share-nodes text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Header Profil -->
+        <div class="px-6 mb-8 animate-float flex flex-col items-center text-center">
+            <!-- Ikon/Logo Kue -->
+            <div class="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-lg mb-4 overflow-hidden">
+                <img src="https://i.ibb.co.com/S70RV5Nh/SINACAKE-LOGO-BULET-01.jpg" alt="SINACAKE-LOGO-BULET-01" class="w-full h-full object-cover" border="0">
             </div>
             
-            <div class="flex items-center gap-2">
-                <!-- Admin Badge -->
-                <div id="admin-badge" class="hidden items-center gap-1.5 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
-                    <i class="fas fa-user-shield"></i>
-                    <span>ADMIN</span>
+            <h1 class="text-2xl font-bold text-pink-500 mb-1">Sina Cake</h1>
+            <p class="text-pink-400 font-bold mb-3">@sinacake.katalog</p>
+            
+            <div class="bg-white border-2 border-pink-100 rounded-2xl p-4 shadow-sm text-sm font-medium leading-relaxed max-w-[90%]">
+                Kue Ulang Tahun Jakarta Bekasi<br>
+                Makanan & Minuman Cake Spesialist 🎂<br>
+                <div class="mt-2 text-xs flex flex-wrap justify-center gap-2">
+                    <span class="bg-pink-50 text-pink-600 px-2 py-1 rounded-md"><i class="fa-solid fa-clock"></i> Buka setiap hari</span>
+                    <span class="bg-pink-50 text-pink-600 px-2 py-1 rounded-md"><i class="fa-solid fa-location-dot"></i> JAKARTA, BEKASI</span>
+                    <span class="bg-pink-50 text-pink-600 px-2 py-1 rounded-md">✅ HALAL</span>
                 </div>
-                
-                <button onclick="showBranchModal()" 
-                        class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-2.5 rounded-2xl text-sm font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-transform">
-                    <i class="fab fa-whatsapp text-lg"></i> 
-                    <span class="hidden sm:inline">Hubungi</span>
-                </button>
+                <div class="mt-2 text-xs font-bold text-gray-500">More Info WA 👇</div>
             </div>
         </div>
 
-        <!-- Search Bar -->
-        <div class="p-4 bg-white sticky top-[73px] z-40 border-b border-pink-100">
-            <div class="relative">
-                <input id="search-input" type="text" placeholder="Cari kue impianmu..." 
-                       class="w-full pl-12 pr-4 py-3.5 border border-pink-200 rounded-3xl focus:outline-none focus:border-pink-400 focus:ring-1 focus:ring-pink-200 text-sm"
-                       onkeyup="handleSearch(this.value)">
-                <i class="fas fa-search absolute left-5 top-4 text-pink-300"></i>
+        <!-- Container Tombol Links -->
+        <div class="px-5 flex flex-col gap-3">
+            
+            <!-- 1. Custom Cake -->
+            <button onclick="openModal('branchModal', 'custom')" class="btn-bouncy w-full bg-pink-500 text-white border-2 border-pink-500 shadow-[0_5px_0_#d81b60] py-3.5 px-4 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:-translate-y-1">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> ORDER KUE CUSTOM? KLIK DISINI
+            </button>
+
+            <!-- 2. Ready Cake -->
+            <button onclick="openModal('branchModal', 'ready')" class="btn-bouncy w-full bg-pink-400 text-white border-2 border-pink-400 shadow-[0_5px_0_#c2185b] py-3.5 px-4 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:-translate-y-1">
+                <i class="fa-solid fa-cake-candles"></i> ORDER KUE READY? KLIK DISINI
+            </button>
+
+            <!-- 3. Contoh Kue (Drive) -->
+            <a href="https://drive.google.com/drive/folders/1uhUuLrEPrOfSXEmbCaLWEhqaW6GjWgfx?usp=sharing" target="_blank" class="btn-bouncy w-full bg-white text-pink-600 border-2 border-pink-200 shadow-[0_5px_0_#fbcfe8] py-3.5 px-4 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:-translate-y-1">
+                <i class="fa-solid fa-images"></i> CONTOH KUE
+            </a>
+
+            <!-- 4. FAQ -->
+            <button onclick="openModal('faqModal')" class="btn-bouncy w-full bg-white text-pink-600 border-2 border-pink-200 shadow-[0_5px_0_#fbcfe8] py-3.5 px-4 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:-translate-y-1">
+                <i class="fa-solid fa-circle-question"></i> FAQ SINACAKE
+            </button>
+
+            <div class="w-full h-px bg-pink-200 my-2 relative flex justify-center items-center">
+                <span class="bg-[#fcf8fa] px-3 text-xs font-bold text-pink-400 tracking-wider uppercase">Lokasi Kami</span>
             </div>
+
+            <!-- 5. Cabang Krendang -->
+            <a href="https://maps.app.goo.gl/EcXvQB8Ya7r59FPu8" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Krendang - Jakarta Barat</span>
+            </a>
+
+            <!-- 6. Cabang Jembatan Besi -->
+            <a href="https://maps.app.goo.gl/k28NYvMjTn6oip5o6" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Express Jembatan Besi - Jakarta Barat</span>
+            </a>
+
+            <!-- 7. Cabang Jelambar -->
+            <a href="https://maps.app.goo.gl/CLqK3x2TsBgaS5UL9" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Jelambar - Jakarta Barat</span>
+            </a>
+
+            <!-- 8. Cabang Tanah Pasir -->
+            <a href="https://maps.app.goo.gl/QBiadGLgyNxrJepN9" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Tanah Pasir - Jakarta Utara</span>
+            </a>
+
+            <!-- 9. Cabang Pademangan -->
+            <a href="https://maps.app.goo.gl/hd9Brj2L5MDBYrZ86" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Pademangan - Jakarta Utara</span>
+            </a>
+
+            <!-- 10. Cabang Bekasi -->
+            <a href="https://maps.app.goo.gl/3UM4eKeTamB9zsTM9" target="_blank" class="btn-bouncy w-full bg-white text-gray-600 border-2 border-gray-100 shadow-[0_4px_0_#f3f4f6] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-start gap-3 hover:-translate-y-1">
+                <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
+                <span class="text-left leading-tight">Sina Cake Perumnas - Bekasi</span>
+            </a>
+
         </div>
 
-        <!-- Main Content -->
-        <div id="main-content" class="p-4 pb-24 min-h-[calc(100vh-200px)] cake-bg"></div>
+        <!-- Sosial Media Bawah -->
+        <div class="mt-10 flex justify-center gap-6">
+            <a href="https://instagram.com/sinacake" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-pink-500 text-3xl shadow-[0_4px_0_#f3f4f6] border border-gray-100 hover:-translate-y-2 transition-transform duration-300">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <button onclick="openModal('branchModal', 'tanya')" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-green-500 text-3xl shadow-[0_4px_0_#f3f4f6] border border-gray-100 hover:-translate-y-2 transition-transform duration-300">
+                <i class="fa-brands fa-whatsapp"></i>
+            </button>
+        </div>
 
-        <!-- Bottom Navigation -->
-        <div class="fixed bottom-0 max-w-md w-full bg-white border-t border-pink-100 p-3 flex gap-2 z-50">
-            <button onclick="goToHome()" 
-                    class="flex-1 py-3.5 bg-pink-100 hover:bg-pink-200 active:bg-pink-300 text-pink-600 rounded-2xl font-bold flex items-center justify-center gap-2 transition-colors">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
+    </div>
+
+    <!-- MODAL WA CABANG -->
+    <div id="branchModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 bg-black/40 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-[360px] rounded-3xl p-5 relative shadow-2xl modal-animate border-4 border-pink-100">
+            <!-- Tombol Close -->
+            <button onclick="closeModal('branchModal')" class="absolute -top-3 -right-3 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold shadow-lg hover:bg-gray-700">
+                <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <button onclick="showBranchModal()" 
-                    class="flex-1 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-[0.985] transition-all">
-                <i class="fab fa-whatsapp text-xl"></i>
-                <span>WhatsApp</span>
-            </button>
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3 class="font-bold text-lg text-gray-800">Pilih Cabang Terdekat</h3>
+                <p class="text-xs text-gray-500 mt-1">Pilih cabang tujuan untuk melanjutkan obrolan via WhatsApp.</p>
+            </div>
+
+            <div class="flex flex-col gap-2 max-h-[50vh] overflow-y-auto pr-1 pb-1" id="branchListContainer">
+                <!-- Tombol cabang akan di-inject lewat Javascript -->
+            </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-2xl text-sm font-medium shadow-2xl z-[100]">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-check-circle text-emerald-400"></i>
-            <span id="toast-text"></span>
+    <!-- MODAL FAQ -->
+    <div id="faqModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 bg-black/40 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-[400px] rounded-3xl p-6 relative shadow-2xl modal-animate border-4 border-pink-100 max-h-[85vh] overflow-y-auto">
+            <!-- Tombol Close -->
+            <button onclick="closeModal('faqModal')" class="absolute -top-3 -right-3 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold shadow-lg hover:bg-gray-700">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-800">FAQ Sina Cake</h3>
+                <p class="text-xs text-gray-500 mt-1">Pertanyaan yang sering diajukan</p>
+            </div>
+            
+            <div class="flex flex-col gap-4 text-left">
+                <!-- Item FAQ 1 -->
+                <div class="border-b border-pink-100 pb-4">
+                    <div class="font-bold text-pink-500 text-sm mb-1">Q: Bagaimana jam operasional Sina Cake?</div>
+                    <div class="text-sm text-gray-600 leading-relaxed">A: Sina Cake beroperasi setiap hari mulai pukul 08.00 hingga 00.00 WIB. Khusus untuk Cabang Krendang, jam operasional berakhir pada pukul 22.00 WIB.</div>
+                </div>
+                <!-- Item FAQ 2 -->
+                <div class="border-b border-pink-100 pb-4">
+                    <div class="font-bold text-pink-500 text-sm mb-1">Q: Bagaimana cara memesan kue custom?</div>
+                    <div class="text-sm text-gray-600 leading-relaxed">A: Anda dapat menyiapkan gambar atau foto referensi kue yang diinginkan, kemudian kirimkan ke admin WhatsApp cabang terdekat kami untuk proses konfirmasi detail dan harga.</div>
+                </div>
+                <!-- Item FAQ 3 -->
+                <div class="border-b border-pink-100 pb-4">
+                    <div class="font-bold text-pink-500 text-sm mb-1">Q: Kapan waktu terbaik untuk memesan kue custom?</div>
+                    <div class="text-sm text-gray-600 leading-relaxed">A: Untuk memastikan ketersediaan slot dan hasil yang maksimal, kami menyarankan Anda untuk melakukan pemesanan minimal H-2 atau H-3 sebelum hari pengiriman.</div>
+                </div>
+                <!-- Item FAQ 4 -->
+                <div class="border-b border-pink-100 pb-4">
+                    <div class="font-bold text-pink-500 text-sm mb-1">Q: Apakah tersedia layanan pengiriman ke rumah?</div>
+                    <div class="text-sm text-gray-600 leading-relaxed">A: Tentu. Untuk menjaga kualitas dan bentuk kue tetap aman selama perjalanan, kami sangat menyarankan penggunaan layanan kurir instan mobil (seperti GrabCar/GoCar).</div>
+                </div>
+                <!-- Item FAQ 5 -->
+                <div>
+                    <div class="font-bold text-pink-500 text-sm mb-1">Q: Berapa lama ketahanan kue Sina Cake?</div>
+                    <div class="text-sm text-gray-600 leading-relaxed">A: Kue kami dapat bertahan selama kurang lebih 24 jam di suhu ruang. Untuk penyimpanan yang lebih lama, Anda dapat menyimpannya di dalam lemari pendingin (kulkas) agar bertahan hingga 3-4 hari.</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ==================== GLOBAL VARIABLES ====================
-        let catalogs = [];
-        let products = [];
-        let isAdminMode = false;
-        let currentCatalogId = null;
-        let searchQuery = '';
-        let currentProduct = null;
-        let headerClickCount = 0;
-        let lastHeaderClickTime = 0;
-        let db = null;
+        // Data Kontak Cabang
+        const branches = [
+            { name: 'Cabang Krendang', phone: '62811870139' },
+            { name: 'Cabang Jelambar', phone: '62819858385' },
+            { name: 'Cabang Tanah Pasir', phone: '6281905128424' },
+            { name: 'Cabang Pademangan', phone: '6281905128446' },
+            { name: 'Cabang Jembatan Besi', phone: '628176886777' },
+            { name: 'Cabang Bekasi', phone: '6281196991117' }
+        ];
 
-        const DB_NAME = 'SinacakeDB';
-        const DB_VERSION = 1;
+        let currentOrderType = '';
 
-        // ==================== INDEXEDDB ====================
-        function openDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                
-                request.onupgradeneeded = (event) => {
-                    const database = event.target.result;
-                    
-                    if (!database.objectStoreNames.contains('catalogs')) {
-                        database.createObjectStore('catalogs', { keyPath: 'id' });
-                    }
-                    
-                    if (!database.objectStoreNames.contains('products')) {
-                        database.createObjectStore('products', { keyPath: 'id' });
-                    }
-                };
-                
-                request.onsuccess = (event) => {
-                    db = event.target.result;
-                    resolve(db);
-                };
-                
-                request.onerror = (event) => {
-                    console.error('IndexedDB error:', event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-        async function ensureDB() {
-            if (!db) {
-                await openDB();
-            }
-            return db;
-        }
-
-        async function getAllFromStore(storeName) {
-            await ensureDB();
-            return new Promise((resolve) => {
-                const transaction = db.transaction(storeName, 'readonly');
-                const store = transaction.objectStore(storeName);
-                const request = store.getAll();
-                
-                request.onsuccess = () => resolve(request.result || []);
-                request.onerror = () => resolve([]);
-            });
-        }
-
-        async function saveToStore(storeName, data) {
-            await ensureDB();
-            return new Promise((resolve) => {
-                const transaction = db.transaction(storeName, 'readwrite');
-                const store = transaction.objectStore(storeName);
-                
-                store.clear().onsuccess = () => {
-                    if (data.length === 0) {
-                        resolve(true);
-                        return;
-                    }
-                    
-                    let completed = 0;
-                    data.forEach(item => {
-                        const req = store.put(item);
-                        req.onsuccess = () => {
-                            completed++;
-                            if (completed === data.length) resolve(true);
-                        };
-                    });
-                };
-            });
-        }
-
-        async function addToStore(storeName, item) {
-            await ensureDB();
-            return new Promise((resolve) => {
-                const transaction = db.transaction(storeName, 'readwrite');
-                const store = transaction.objectStore(storeName);
-                const request = store.put(item);
-                request.onsuccess = () => resolve(true);
-                request.onerror = () => resolve(false);
-            });
-        }
-
-        async function deleteFromStore(storeName, id) {
-            await ensureDB();
-            return new Promise((resolve) => {
-                const transaction = db.transaction(storeName, 'readwrite');
-                const store = transaction.objectStore(storeName);
-                const request = store.delete(id);
-                request.onsuccess = () => resolve(true);
-                request.onerror = () => resolve(false);
-            });
-        }
-
-        // ==================== DATA MANAGEMENT ====================
-        function seedInitialData() {
-            catalogs = [
-                { id: "c1", name: "Anak-anak", icon: "fa-baby" },
-                { id: "c2", name: "Dewasa", icon: "fa-user" },
-                { id: "c3", name: "Umum", icon: "fa-users" },
-                { id: "c4", name: "Flower Cake", icon: "fa-spa" },
-                { id: "c5", name: "Persegi / Kotak", icon: "fa-square" },
-                { id: "c6", name: "Wedding", icon: "fa-heart" },
-                { id: "c7", name: "Cake Religi", icon: "fa-church" },
-                { id: "c8", name: "Chinese Theme", icon: "fa-dragon" },
-                { id: "c9", name: "Adult 18+", icon: "fa-user-secret" }
-            ];
-            
-            products = [
-                { 
-                    id: "p4", 
-                    catalogId: "c4", 
-                    name: "Flower Garden Cake", 
-                    image: "https://picsum.photos/id/1011/600/600", 
-                    keywords: ["flower", "garden", "pink", "elegan"] 
-                },
-                { 
-                    id: "p5", 
-                    catalogId: "c6", 
-                    name: "Classic Wedding Cake", 
-                    image: "https://picsum.photos/id/106/600/600", 
-                    keywords: ["wedding", "putih", "elegan", "klasik"] 
-                },
-                { 
-                    id: "p6", 
-                    catalogId: "c7", 
-                    name: "Cake Religi Halal", 
-                    image: "https://picsum.photos/id/292/600/600", 
-                    keywords: ["halal", "religi", "islam", "hijau"] 
-                },
-                { 
-                    id: "p7", 
-                    catalogId: "c8", 
-                    name: "Chinese Dragon Cake", 
-                    image: "https://picsum.photos/id/201/600/600", 
-                    keywords: ["dragon", "chinese", "red", "imlek"] 
-                },
-                { 
-                    id: "p8", 
-                    catalogId: "c9", 
-                    name: "Red Velvet Adult", 
-                    image: "https://picsum.photos/id/1005/600/600", 
-                    keywords: ["redvelvet", "18+", "dewasa", "sexy"] 
-                },
-                { 
-                    id: "p9", 
-                    catalogId: "c6", 
-                    name: "Rustic Wedding Cake", 
-                    image: "https://picsum.photos/id/160/600/600", 
-                    keywords: ["rustic", "wedding", "natural", "boho"] 
-                }
-            ];
-        }
-
-        async function migrateFromOldLocalStorage() {
-            try {
-                const oldCatalogs = localStorage.getItem('sinacake_catalogs');
-                const oldProducts = localStorage.getItem('sinacake_products');
-                
-                if (oldCatalogs) {
-                    const parsedCatalogs = JSON.parse(oldCatalogs);
-                    const parsedProducts = oldProducts ? JSON.parse(oldProducts) : [];
-                    
-                    if (parsedCatalogs.length > 0) {
-                        catalogs = parsedCatalogs;
-                        products = parsedProducts;
-                        
-                        await saveToStore('catalogs', catalogs);
-                        await saveToStore('products', products);
-                        
-                        localStorage.removeItem('sinacake_catalogs');
-                        localStorage.removeItem('sinacake_products');
-                        
-                        showToast('Data lama berhasil dipindahkan ke penyimpanan baru!');
-                        return true;
-                    }
-                }
-            } catch (e) {
-                console.log('No old data to migrate or error:', e);
-            }
-            return false;
-        }
-
-        async function loadData() {
-            try {
-                await ensureDB();
-                
-                const migrated = await migrateFromOldLocalStorage();
-                
-                if (!migrated) {
-                    const savedCatalogs = await getAllFromStore('catalogs');
-                    const savedProducts = await getAllFromStore('products');
-                    
-                    if (savedCatalogs.length > 0) {
-                        catalogs = savedCatalogs;
-                    }
-                    if (savedProducts.length > 0) {
-                        products = savedProducts;
-                    }
-                }
-                
-                if (catalogs.length === 0) {
-                    seedInitialData();
-                    await saveData();
-                    showToast('Data contoh berhasil dimuat');
-                }
-            } catch (e) {
-                console.error('Error loading data:', e);
-                seedInitialData();
-            }
-        }
-
-        async function saveData() {
-            try {
-                await saveToStore('catalogs', catalogs);
-                await saveToStore('products', products);
-            } catch (e) {
-                console.error('Error saving data:', e);
-            }
-        }
-
-        async function addCatalog(newCatalog) {
-            catalogs.push(newCatalog);
-            await addToStore('catalogs', newCatalog);
-            render();
-        }
-
-        async function addProduct(newProduct) {
-            products.push(newProduct);
-            await addToStore('products', newProduct);
-            render();
-        }
-
-        async function updateProduct(id, updates) {
-            const index = products.findIndex(p => p.id === id);
-            if (index !== -1) {
-                products[index] = { ...products[index], ...updates };
-                await addToStore('products', products[index]);
-                render();
-            }
-        }
-
-        async function deleteProduct(id) {
-            products = products.filter(p => p.id !== id);
-            await deleteFromStore('products', id);
-            render();
-        }
-
-        async function confirmDeleteAllProducts() {
-            if (!currentCatalogId) return;
-            
-            const cat = catalogs.find(c => c.id === currentCatalogId);
-            const count = products.filter(p => p.catalogId === currentCatalogId).length;
-            
-            if (count === 0) {
-                alert('Tidak ada produk di kategori ini.');
-                return;
-            }
-            
-            if (!confirm(`Yakin ingin menghapus SEMUA ${count} produk di kategori "${cat.name}"?\n\nTindakan ini tidak bisa dibatalkan.`)) {
-                return;
-            }
-            
-            // Hapus semua produk di kategori ini
-            const toDelete = products.filter(p => p.catalogId === currentCatalogId);
-            for (const prod of toDelete) {
-                await deleteFromStore('products', prod.id);
-            }
-            
-            products = products.filter(p => p.catalogId !== currentCatalogId);
-            showToast(`${count} produk berhasil dihapus dari kategori "${cat.name}"`);
-            render();
-        }
-
-        async function updateCatalog(id, updates) {
-            const index = catalogs.findIndex(c => c.id === id);
-            if (index !== -1) {
-                catalogs[index] = { ...catalogs[index], ...updates };
-                await addToStore('catalogs', catalogs[index]);
-                render();
-            }
-        }
-
-        async function deleteCatalog(id) {
-            const productsToDelete = products.filter(p => p.catalogId === id);
-            for (const prod of productsToDelete) {
-                await deleteFromStore('products', prod.id);
-            }
-            products = products.filter(p => p.catalogId !== id);
-            
-            catalogs = catalogs.filter(c => c.id !== id);
-            await deleteFromStore('catalogs', id);
-            render();
-        }
-
-        // ==================== RENDER FUNCTIONS ====================
-        function render() {
-            const container = document.getElementById('main-content');
+        // Render Tombol Cabang
+        function renderBranchButtons() {
+            const container = document.getElementById('branchListContainer');
             container.innerHTML = '';
-
-            if (searchQuery) {
-                renderSearchResults(container);
-            } else if (currentCatalogId) {
-                renderCatalogProducts(container);
-            } else {
-                renderHomeCatalogs(container);
-            }
-        }
-
-        function renderHomeCatalogs(container) {
-            let html = `
-                <div class="mb-4 flex items-center justify-between px-1">
-                    <div>
-                        <h2 class="text-2xl font-extrabold text-gray-800">Kategori Kue</h2>
-                        <p class="text-sm text-pink-500">Pilih kategori favoritmu</p>
-                    </div>
-                    ${isAdminMode ? `
-                        <button onclick="showAddCatalogModal()" 
-                                class="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-lg active:scale-95 transition-all">
-                            <i class="fas fa-plus"></i>
-                            <span>Tambah</span>
-                        </button>
-                    ` : ''}
-                </div>
-                
-                <div class="grid grid-cols-2 gap-3">
-            `;
             
-            catalogs.forEach(cat => {
-                const count = products.filter(p => p.catalogId === cat.id).length;
-                html += `
-                    <div onclick="openCatalog('${cat.id}')" 
-                         class="catalog-card bg-white border border-pink-100 rounded-3xl p-4 cursor-pointer hover:border-pink-200 group">
-                        <div class="flex items-start justify-between">
-                            <div class="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center group-hover:bg-pink-200 transition-colors">
-                                <i class="fas ${cat.icon} text-pink-500 text-2xl"></i>
-                            </div>
-                            
-                            ${isAdminMode ? `
-                                <div class="flex gap-1">
-                                    <button onclick="event.stopImmediatePropagation(); showEditCatalogModal('${cat.id}')" 
-                                            class="w-8 h-8 flex items-center justify-center text-pink-400 hover:text-pink-600 hover:bg-pink-50 rounded-xl">
-                                        <i class="fas fa-edit text-xs"></i>
-                                    </button>
-                                    <button onclick="event.stopImmediatePropagation(); confirmDeleteCatalog('${cat.id}')" 
-                                            class="w-8 h-8 flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-50 rounded-xl">
-                                        <i class="fas fa-trash text-xs"></i>
-                                    </button>
-                                </div>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="mt-4">
-                            <div class="font-bold text-lg text-gray-800">${cat.name}</div>
-                            <div class="text-xs text-pink-400 mt-0.5">${count} produk</div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += `</div>`;
-            
-            // Always show Import on main page (no login required)
-            html += `
-                <div class="mt-6 flex gap-2">
-                    <button onclick="importData()" 
-                            class="flex-1 py-3 text-sm bg-white border-2 border-dashed border-pink-300 hover:border-pink-400 active:bg-pink-50 text-pink-600 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all">
-                        <i class="fas fa-file-import"></i> 
-                        <span>Import Backup JSON</span>
-                    </button>
-                    ${isAdminMode ? `
-                        <button onclick="exportData()" 
-                                class="flex-1 py-3 text-sm bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-2xl font-bold flex items-center justify-center gap-2">
-                            <i class="fas fa-download"></i> 
-                            <span>Export</span>
-                        </button>
-                    ` : ''}
-                </div>
-            `;
-            
-            if (isAdminMode) {
-                html += `
-                    <div class="mt-3 p-4 bg-emerald-50 border border-emerald-100 rounded-3xl text-xs text-emerald-700 flex items-start gap-3">
-                        <i class="fas fa-database mt-0.5"></i>
-                        <div>
-                            <strong>Data tersimpan di IndexedDB</strong><br>
-                            Kapasitas besar • Aman • Offline
-                        </div>
-                    </div>
-                `;
-            }
-            
-            container.innerHTML = html;
-        }
-
-        function renderCatalogProducts(container) {
-            const cat = catalogs.find(c => c.id === currentCatalogId);
-            const catProducts = products.filter(p => p.catalogId === currentCatalogId);
-
-            let html = `
-                <div class="flex items-center justify-between mb-4 px-1">
-                    <div class="flex items-center gap-3">
-                        <button onclick="goToHome()" 
-                                class="w-10 h-10 bg-pink-100 hover:bg-pink-200 active:bg-pink-300 rounded-2xl flex items-center justify-center text-pink-600 transition-colors">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <div>
-                            <h2 class="text-2xl font-extrabold text-gray-800">${cat ? cat.name : ''}</h2>
-                            <p class="text-sm text-pink-500">${catProducts.length} produk</p>
-                        </div>
-                    </div>
-                    
-                    ${isAdminMode ? `
-                        <div class="flex gap-2">
-                            <button onclick="confirmDeleteAllProducts()" 
-                                    class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-lg active:scale-95">
-                                <i class="fas fa-trash"></i>
-                                <span class="hidden sm:inline">Hapus Semua</span>
-                            </button>
-                            
-                            <button onclick="showAddProductModal()" 
-                                    class="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-lg active:scale-95">
-                                <i class="fas fa-plus"></i>
-                                <span class="hidden sm:inline">Tambah</span>
-                            </button>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-
-            if (catProducts.length === 0) {
-                html += `
-                    <div class="text-center py-16">
-                        <div class="w-16 h-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-birthday-cake text-pink-300 text-3xl"></i>
-                        </div>
-                        <p class="text-gray-400">Belum ada produk di kategori ini</p>
-                        ${isAdminMode ? `<button onclick="showAddProductModal()" class="mt-4 text-pink-500 text-sm font-bold">+ Tambah Produk Pertama</button>` : ''}
-                    </div>
-                `;
-            } else {
-                html += `<div class="grid grid-cols-2 gap-3">`;
-                
-                catProducts.forEach(prod => {
-                    html += `
-                        <div onclick="showProductDetail('${prod.id}')" 
-                             class="product-card bg-white border border-pink-100 rounded-3xl overflow-hidden cursor-pointer group">
-                            <div class="relative">
-                                <img src="${prod.image}" class="w-full object-contain max-h-[240px] bg-pink-50 rounded-t-3xl" 
-                                     onerror="this.src='https://picsum.photos/id/292/600/600'">
-                                
-                                ${isAdminMode ? `
-                                    <div class="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button onclick="event.stopImmediatePropagation(); showEditProductModal('${prod.id}')" 
-                                                class="w-8 h-8 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-pink-500 shadow">
-                                            <i class="fas fa-edit text-xs"></i>
-                                        </button>
-                                        <button onclick="event.stopImmediatePropagation(); confirmDeleteProduct('${prod.id}')" 
-                                                class="w-8 h-8 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-red-500 shadow">
-                                            <i class="fas fa-trash text-xs"></i>
-                                        </button>
-                                    </div>
-                                ` : ''}
-                            </div>
-                            
-                            <div class="p-3.5">
-                                <div class="font-bold text-sm text-gray-800 line-clamp-2 leading-tight">${prod.name}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += `</div>`;
-            }
-            
-            container.innerHTML = html;
-        }
-
-        function renderSearchResults(container) {
-            const q = searchQuery.toLowerCase().trim();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(q) || 
-                (p.keywords && p.keywords.some(k => k.toLowerCase().includes(q)))
-            );
-
-            let html = `
-                <div class="mb-4 px-1">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="text-sm text-gray-500">Hasil pencarian untuk</span>
-                            <span class="font-bold text-pink-600">"${searchQuery}"</span>
-                        </div>
-                        <span class="text-xs bg-pink-100 text-pink-600 px-3 py-1 rounded-full font-bold">${filtered.length} ditemukan</span>
-                    </div>
-                </div>
-            `;
-            
-            if (filtered.length === 0) {
-                html += `
-                    <div class="text-center py-12">
-                        <i class="fas fa-search text-4xl text-pink-200 mb-4"></i>
-                        <p class="text-gray-400">Tidak ada produk yang cocok</p>
-                    </div>
-                `;
-            } else {
-                html += `<div class="grid grid-cols-2 gap-3">`;
-                
-                filtered.forEach(prod => {
-                    const cat = catalogs.find(c => c.id === prod.catalogId);
-                    html += `
-                        <div onclick="showProductDetail('${prod.id}')" 
-                             class="product-card bg-white border border-pink-100 rounded-3xl overflow-hidden cursor-pointer">
-                            <img src="${prod.image}" class="w-full object-contain max-h-[240px] bg-pink-50 rounded-t-3xl"
-                                 onerror="this.src='https://picsum.photos/id/292/600/600'">
-                            <div class="p-3.5">
-                                <div class="font-bold text-sm text-gray-800 line-clamp-2">${prod.name}</div>
-                                ${cat ? `<div class="text-[10px] text-pink-400 mt-1">${cat.name}</div>` : ''}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += `</div>`;
-            }
-            
-            container.innerHTML = html;
-        }
-
-        // ==================== NAVIGATION ====================
-        function openCatalog(id) {
-            currentCatalogId = id;
-            searchQuery = '';
-            document.getElementById('search-input').value = '';
-            render();
-        }
-
-        function goToHome() {
-            currentCatalogId = null;
-            searchQuery = '';
-            document.getElementById('search-input').value = '';
-            render();
-        }
-
-        function handleSearch(value) {
-            searchQuery = value;
-            currentCatalogId = null;
-            render();
-        }
-
-        // ==================== PRODUCT DETAIL ====================
-        function showProductDetail(id) {
-            currentProduct = products.find(p => p.id === id);
-            if (!currentProduct) return;
-
-            const cat = catalogs.find(c => c.id === currentProduct.catalogId);
-            
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black/70 flex items-end sm:items-center justify-center z-[70]';
-            modal.innerHTML = `
-                <div class="bg-white w-full max-w-md sm:mx-4 sm:rounded-3xl sm:my-8 overflow-hidden modal">
-                    <div class="relative group">
-                        <img src="${currentProduct.image}" 
-                             class="w-full max-h-[420px] object-contain bg-pink-50 cursor-zoom-in transition-all group-hover:brightness-95"
-                             onerror="this.src='https://picsum.photos/id/292/600/600'"
-                             onclick="showImagePreview('${currentProduct.image}', '${currentProduct.name.replace(/'/g, "\\'")}')">
-                        
-                        <div class="absolute top-3 right-3 bg-black/60 text-white text-[10px] px-2.5 py-0.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                            <i class="fas fa-search-plus text-xs"></i>
-                            <span class="text-[10px]">Zoom</span>
-                        </div>
-                        
-                        <button onclick="event.stopImmediatePropagation(); this.closest('.fixed').remove()" 
-                                class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-600 shadow z-10">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        
-                        ${cat ? `
-                            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-pink-600 flex items-center gap-1.5">
-                                <i class="fas ${cat.icon}"></i>
-                                <span>${cat.name}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="p-5">
-                        <h3 class="text-2xl font-extrabold text-gray-900 mb-3">${currentProduct.name}</h3>
-                        
-                        ${currentProduct.keywords && currentProduct.keywords.length > 0 ? `
-                            <div class="flex flex-wrap gap-1.5 mb-5">
-                                ${currentProduct.keywords.map(k => `
-                                    <span class="text-xs bg-pink-100 text-pink-600 px-3 py-1 rounded-full font-medium">#${k}</span>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="space-y-3">
-                            <button onclick="showBranchModalFromProduct(); this.closest('.fixed').remove();" 
-                                    class="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold rounded-2xl flex items-center justify-center gap-3 text-lg shadow-xl active:scale-[0.985]">
-                                <i class="fab fa-whatsapp text-2xl"></i> 
-                                <span>Pesan via WhatsApp</span>
-                            </button>
-                            
-                            ${isAdminMode ? `
-                                <div class="grid grid-cols-2 gap-3 pt-1">
-                                    <button onclick="showEditProductModal('${currentProduct.id}'); this.closest('.fixed').remove();" 
-                                            class="py-3.5 border border-pink-200 text-pink-600 font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-pink-50">
-                                        <i class="fas fa-edit"></i> 
-                                        <span>Edit</span>
-                                    </button>
-                                    <button onclick="confirmDeleteProduct('${currentProduct.id}'); this.closest('.fixed').remove();" 
-                                            class="py-3.5 border border-red-200 text-red-500 font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-red-50">
-                                        <i class="fas fa-trash"></i> 
-                                        <span>Hapus</span>
-                                    </button>
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            modal.onclick = function(e) {
-                if (e.target === modal) modal.remove();
-            };
-        }
-
-        function showBranchModalFromProduct() {
-            const modals = document.querySelectorAll('.fixed.inset-0');
-            modals.forEach(m => m.remove());
-            showBranchModal();
-        }
-
-        // ==================== ADMIN FUNCTIONS ====================
-        function showAddCatalogModal() {
-            const modal = createModal(`
-                <div class="p-6">
-                    <h3 class="text-xl font-extrabold mb-5">Tambah Kategori Baru</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Nama Kategori</label>
-                            <input id="cat-name" type="text" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400" placeholder="Contoh: Birthday Cake">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Ikon (Font Awesome)</label>
-                            <select id="cat-icon" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400">
-                                <option value="fa-baby">👶 Anak-anak (fa-baby)</option>
-                                <option value="fa-user">👤 Dewasa (fa-user)</option>
-                                <option value="fa-users">👥 Umum (fa-users)</option>
-                                <option value="fa-spa">🌸 Flower (fa-spa)</option>
-                                <option value="fa-square">⬛ Persegi (fa-square)</option>
-                                <option value="fa-heart">❤️ Wedding (fa-heart)</option>
-                                <option value="fa-church">⛪ Religi (fa-church)</option>
-                                <option value="fa-dragon">🐉 Chinese (fa-dragon)</option>
-                                <option value="fa-user-secret">🕵️ Adult (fa-user-secret)</option>
-                                <option value="fa-birthday-cake">🎂 Umum (fa-birthday-cake)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <button onclick="this.closest('.fixed').remove()" 
-                                class="flex-1 py-3.5 border border-gray-200 rounded-2xl font-bold text-gray-600">Batal</button>
-                        <button onclick="saveNewCatalog(this)" 
-                                class="flex-1 py-3.5 bg-pink-500 text-white rounded-2xl font-bold">Simpan Kategori</button>
-                    </div>
-                </div>
-            `);
-        }
-
-        async function saveNewCatalog(btn) {
-            const name = document.getElementById('cat-name').value.trim();
-            const icon = document.getElementById('cat-icon').value;
-            
-            if (!name) {
-                alert('Nama kategori wajib diisi!');
-                return;
-            }
-            
-            const newCat = {
-                id: 'c' + Date.now(),
-                name: name,
-                icon: icon
-            };
-            
-            await addCatalog(newCat);
-            btn.closest('.fixed').remove();
-            showToast('Kategori berhasil ditambahkan');
-        }
-
-        function showEditCatalogModal(id) {
-            const cat = catalogs.find(c => c.id === id);
-            if (!cat) return;
-
-            const modal = createModal(`
-                <div class="p-6">
-                    <h3 class="text-xl font-extrabold mb-5">Edit Kategori</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Nama Kategori</label>
-                            <input id="edit-cat-name" type="text" value="${cat.name}" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Ikon</label>
-                            <select id="edit-cat-icon" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400">
-                                <option value="fa-baby" ${cat.icon === 'fa-baby' ? 'selected' : ''}>👶 Anak-anak</option>
-                                <option value="fa-user" ${cat.icon === 'fa-user' ? 'selected' : ''}>👤 Dewasa</option>
-                                <option value="fa-users" ${cat.icon === 'fa-users' ? 'selected' : ''}>👥 Umum</option>
-                                <option value="fa-spa" ${cat.icon === 'fa-spa' ? 'selected' : ''}>🌸 Flower</option>
-                                <option value="fa-square" ${cat.icon === 'fa-square' ? 'selected' : ''}>⬛ Persegi</option>
-                                <option value="fa-heart" ${cat.icon === 'fa-heart' ? 'selected' : ''}>❤️ Wedding</option>
-                                <option value="fa-church" ${cat.icon === 'fa-church' ? 'selected' : ''}>⛪ Religi</option>
-                                <option value="fa-dragon" ${cat.icon === 'fa-dragon' ? 'selected' : ''}>🐉 Chinese</option>
-                                <option value="fa-user-secret" ${cat.icon === 'fa-user-secret' ? 'selected' : ''}>🕵️ Adult</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <button onclick="confirmDeleteCatalog('${id}'); this.closest('.fixed').remove();" 
-                                class="flex-1 py-3.5 border border-red-200 text-red-500 rounded-2xl font-bold">Hapus Kategori</button>
-                        <button onclick="saveEditCatalog('${id}', this)" 
-                                class="flex-1 py-3.5 bg-pink-500 text-white rounded-2xl font-bold">Simpan Perubahan</button>
-                    </div>
-                </div>
-            `);
-        }
-
-        async function saveEditCatalog(id, btn) {
-            const name = document.getElementById('edit-cat-name').value.trim();
-            const icon = document.getElementById('edit-cat-icon').value;
-            
-            if (!name) return alert('Nama kategori wajib diisi!');
-            
-            await updateCatalog(id, { name, icon });
-            btn.closest('.fixed').remove();
-            showToast('Kategori berhasil diperbarui');
-        }
-
-        function confirmDeleteCatalog(id) {
-            if (!confirm('Hapus kategori ini? Semua produk di dalamnya juga akan terhapus.')) return;
-            
-            deleteCatalog(id);
-            showToast('Kategori dan produk terkait berhasil dihapus');
-        }
-
-        // ==================== BULK UPLOAD + PARSER ====================
-        function parseFileName(fileName) {
-            // Hilangkan ekstensi
-            let nameWithoutExt = fileName.replace(/\.[^/.]+$/, "").trim();
-            
-            // Pisahkan berdasarkan _# atau _ #
-            let parts = nameWithoutExt.split(/_ *#/);
-            
-            let productName = parts[0].trim();
-            
-            // Title Case otomatis
-            productName = productName
-                .toLowerCase()
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-            
-            let keywords = [];
-            if (parts.length > 1) {
-                // Ambil semua kata yang diawali #
-                const keywordPart = parts.slice(1).join(' ');
-                keywords = keywordPart
-                    .split(/ +#/)
-                    .map(k => k.replace(/^#/, '').trim())
-                    .filter(k => k.length > 0);
-            }
-            
-            return {
-                productName: productName,
-                keywords: keywords
-            };
-        }
-
-        function showBulkUploadModal() {
-            if (!currentCatalogId) {
-                alert('Buka kategori terlebih dahulu');
-                return;
-            }
-            
-            const currentCat = catalogs.find(c => c.id === currentCatalogId);
-            
-            const bulkModal = document.createElement('div');
-            bulkModal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[80] p-4';
-            bulkModal.innerHTML = `
-                <div class="bg-white w-full max-w-5xl max-h-[92vh] rounded-3xl overflow-hidden flex flex-col modal">
-                    <!-- Header -->
-                    <div class="px-6 py-4 border-b flex items-center justify-between bg-gradient-to-r from-pink-500 to-rose-500 text-white">
-                        <div>
-                            <h3 class="text-2xl font-extrabold">Bulk Upload Gambar</h3>
-                            <p class="text-sm text-white/80">Kategori: <span class="font-bold">${currentCat ? currentCat.name : ''}</span></p>
-                        </div>
-                        <button onclick="this.closest('.fixed').remove()" class="text-white/80 hover:text-white text-3xl leading-none">&times;</button>
-                    </div>
-                    
-                    <div class="p-6 flex-1 overflow-auto">
-                        <!-- Step 1: Pilih File -->
-                        <div id="bulk-step-1">
-                            <div class="border-2 border-dashed border-pink-300 rounded-3xl p-10 text-center">
-                                <i class="fas fa-images text-5xl text-pink-300 mb-4"></i>
-                                <h4 class="font-bold text-xl mb-2">Pilih Banyak Gambar Sekaligus</h4>
-                                <p class="text-gray-500 text-sm mb-4">Format nama file: <code class="bg-pink-100 px-2 py-0.5 rounded">Nama Produk_#keyword1 #keyword2</code></p>
-                                
-                                <input type="file" id="bulk-files" accept="image/*" multiple class="hidden">
-                                <button onclick="document.getElementById('bulk-files').click()" 
-                                        class="px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-2xl flex items-center gap-3 mx-auto">
-                                    <i class="fas fa-folder-open"></i>
-                                    <span>Pilih Gambar (Multiple)</span>
-                                </button>
-                                <p class="text-xs text-gray-400 mt-3">Mendukung format JPG, PNG, WEBP</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Step 2: Preview List -->
-                        <div id="bulk-step-2" class="hidden">
-                            <div class="flex items-center justify-between mb-4">
-                                <div>
-                                    <span class="font-bold">Daftar Preview</span>
-                                    <span id="bulk-count" class="text-sm text-pink-500 ml-2"></span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button onclick="selectAllBulk(true)" class="text-xs px-3 py-1.5 border border-pink-200 rounded-xl hover:bg-pink-50">Pilih Semua</button>
-                                    <button onclick="selectAllBulk(false)" class="text-xs px-3 py-1.5 border border-pink-200 rounded-xl hover:bg-pink-50">Batalkan Pilihan</button>
-                                </div>
-                            </div>
-                            
-                            <div id="bulk-preview-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[420px] overflow-auto pr-2"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Footer -->
-                    <div class="border-t p-4 flex items-center justify-between bg-gray-50">
-                        <div id="bulk-progress-container" class="hidden flex-1 mr-4">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 bg-gray-200 rounded-full h-3 overflow-hidden">
-                                    <div id="bulk-progress-bar" class="h-3 bg-gradient-to-r from-pink-500 to-rose-500 transition-all" style="width: 0%"></div>
-                                </div>
-                                <span id="bulk-progress-text" class="text-sm font-mono text-pink-600 w-12 text-right">0%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex gap-3">
-                            <button onclick="this.closest('.fixed').remove()" class="px-6 py-2.5 text-gray-500 font-medium">Batal</button>
-                            <button id="bulk-process-btn" onclick="processBulkFiles()" 
-                                    class="hidden px-8 py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-2xl flex items-center gap-2">
-                                <i class="fas fa-magic"></i>
-                                <span>Proses &amp; Preview</span>
-                            </button>
-                            <button id="bulk-save-btn" onclick="saveBulkProducts(this)" 
-                                    class="hidden px-8 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-2xl flex items-center gap-2">
-                                <i class="fas fa-save"></i>
-                                <span>Simpan yang Dipilih</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(bulkModal);
-            
-            // Event listener untuk file input
-            const fileInput = bulkModal.querySelector('#bulk-files');
-            fileInput.onchange = () => {
-                if (fileInput.files.length > 0) {
-                    bulkModal.querySelector('#bulk-process-btn').classList.remove('hidden');
-                }
-            };
-        }
-
-        let bulkFilesData = [];
-
-        async function processBulkFiles() {
-            const modal = document.querySelector('.fixed.z-\\[80\\]');
-            const fileInput = modal.querySelector('#bulk-files');
-            const files = Array.from(fileInput.files);
-            
-            if (files.length === 0) return;
-            
-            bulkFilesData = [];
-            
-            // Sembunyikan step 1, tampilkan step 2
-            modal.querySelector('#bulk-step-1').classList.add('hidden');
-            modal.querySelector('#bulk-step-2').classList.remove('hidden');
-            modal.querySelector('#bulk-process-btn').classList.add('hidden');
-            modal.querySelector('#bulk-save-btn').classList.remove('hidden');
-            
-            const previewContainer = modal.querySelector('#bulk-preview-list');
-            previewContainer.innerHTML = '';
-            
-            // Progress bar
-            const progressContainer = modal.querySelector('#bulk-progress-container');
-            const progressBar = modal.querySelector('#bulk-progress-bar');
-            const progressText = modal.querySelector('#bulk-progress-text');
-            progressContainer.classList.remove('hidden');
-            
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const progress = Math.round(((i + 1) / files.length) * 100);
-                
-                progressBar.style.width = progress + '%';
-                progressText.textContent = progress + '%';
-                
-                // Parse nama file
-                const parsed = parseFileName(file.name);
-                
-                // Convert ke base64
-                const base64 = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = e => resolve(e.target.result);
-                    reader.readAsDataURL(file);
-                });
-                
-                const item = {
-                    id: 'bulk_' + Date.now() + '_' + i,
-                    fileName: file.name,
-                    productName: parsed.productName,
-                    keywords: parsed.keywords,
-                    imageBase64: base64,
-                    selected: true
-                };
-                
-                bulkFilesData.push(item);
-                
-                // Render preview card
-                const card = document.createElement('div');
-                card.className = `border rounded-2xl p-4 flex gap-4 bg-white bulk-item ${item.selected ? 'border-pink-300' : 'border-gray-200 opacity-60'}`;
-                card.innerHTML = `
-                    <div class="w-24 h-24 flex-shrink-0">
-                        <img src="${base64}" class="w-full h-full object-cover rounded-xl border">
-                    </div>
-                    <div class="flex-1 min-w-0 space-y-3">
-                        <div>
-                            <label class="text-xs font-bold text-gray-500">NAMA PRODUK</label>
-                            <input type="text" value="${item.productName}" 
-                                   class="w-full border border-pink-200 rounded-xl px-3 py-2 text-sm font-medium bulk-name-input">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-500">KEYWORDS</label>
-                            <input type="text" value="${item.keywords.join(', ')}" 
-                                   class="w-full border border-pink-200 rounded-xl px-3 py-2 text-sm bulk-keyword-input"
-                                   placeholder="pisahkan dengan koma">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="flex items-center gap-2 text-sm cursor-pointer">
-                                <input type="checkbox" ${item.selected ? 'checked' : ''} class="bulk-select-checkbox accent-pink-500">
-                                <span class="text-xs text-gray-600">Simpan</span>
-                            </label>
-                            <button onclick="removeBulkItem('${item.id}', this)" class="text-red-400 hover:text-red-500 text-xs flex items-center gap-1">
-                                <i class="fas fa-trash"></i> <span class="hidden sm:inline">Hapus</span>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                // Event listeners untuk update data
-                const nameInput = card.querySelector('.bulk-name-input');
-                const keywordInput = card.querySelector('.bulk-keyword-input');
-                const checkbox = card.querySelector('.bulk-select-checkbox');
-                
-                nameInput.oninput = () => {
-                    item.productName = nameInput.value;
-                };
-                
-                keywordInput.oninput = () => {
-                    item.keywords = keywordInput.value.split(',').map(k => k.trim()).filter(Boolean);
-                };
-                
-                checkbox.onchange = () => {
-                    item.selected = checkbox.checked;
-                    if (checkbox.checked) {
-                        card.classList.remove('opacity-60', 'border-gray-200');
-                        card.classList.add('border-pink-300');
-                    } else {
-                        card.classList.add('opacity-60', 'border-gray-200');
-                        card.classList.remove('border-pink-300');
-                    }
-                };
-                
-                previewContainer.appendChild(card);
-            }
-            
-            // Update count
-            modal.querySelector('#bulk-count').textContent = `${files.length} gambar`;
-            
-            // Sembunyikan progress setelah selesai
-            setTimeout(() => {
-                progressContainer.classList.add('hidden');
-            }, 800);
-        }
-
-        function selectAllBulk(select) {
-            const modal = document.querySelector('.fixed.z-\\[80\\]');
-            const checkboxes = modal.querySelectorAll('.bulk-select-checkbox');
-            const cards = modal.querySelectorAll('.bulk-item');
-            
-            checkboxes.forEach((cb, index) => {
-                cb.checked = select;
-                bulkFilesData[index].selected = select;
-                
-                if (select) {
-                    cards[index].classList.remove('opacity-60', 'border-gray-200');
-                    cards[index].classList.add('border-pink-300');
-                } else {
-                    cards[index].classList.add('opacity-60', 'border-gray-200');
-                    cards[index].classList.remove('border-pink-300');
-                }
+            branches.forEach(branch => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full bg-pink-50 hover:bg-pink-500 text-pink-600 hover:text-white font-bold py-3 px-4 rounded-xl text-sm transition-colors text-left flex justify-between items-center border border-pink-100';
+                btn.innerHTML = `<span>📍 ${branch.name}</span> <i class="fa-solid fa-chevron-right text-xs opacity-70"></i>`;
+                btn.onclick = () => sendToWhatsApp(branch.phone, branch.name);
+                container.appendChild(btn);
             });
         }
-
-        function removeBulkItem(id, btn) {
-            bulkFilesData = bulkFilesData.filter(item => item.id !== id);
-            btn.closest('.bulk-item').remove();
-            
-            const modal = document.querySelector('.fixed.z-\\[80\\]');
-            modal.querySelector('#bulk-count').textContent = `${bulkFilesData.length} gambar`;
-            
-            if (bulkFilesData.length === 0) {
-                modal.querySelector('#bulk-save-btn').classList.add('hidden');
-            }
-        }
-
-        async function saveBulkProducts(btn) {
-            const selectedItems = bulkFilesData.filter(item => item.selected);
-            
-            if (selectedItems.length === 0) {
-                alert('Tidak ada produk yang dipilih untuk disimpan.');
-                return;
-            }
-            
-            const modal = btn.closest('.fixed');
-            const progressContainer = modal.querySelector('#bulk-progress-container');
-            const progressBar = modal.querySelector('#bulk-progress-bar');
-            const progressText = modal.querySelector('#bulk-progress-text');
-            
-            progressContainer.classList.remove('hidden');
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>Menyimpan...</span>`;
-            
-            let savedCount = 0;
-            
-            for (let i = 0; i < selectedItems.length; i++) {
-                const item = selectedItems[i];
-                const progress = Math.round(((i + 1) / selectedItems.length) * 100);
-                
-                progressBar.style.width = progress + '%';
-                progressText.textContent = progress + '%';
-                
-                const newProduct = {
-                    id: 'p' + Date.now() + '_' + i,
-                    catalogId: currentCatalogId,
-                    name: item.productName,
-                    image: item.imageBase64,
-                    keywords: item.keywords.length > 0 ? item.keywords : ['produk']
-                };
-                
-                await addProduct(newProduct);
-                savedCount++;
-                
-                // Small delay agar progress terlihat
-                await new Promise(r => setTimeout(r, 80));
-            }
-            
-            modal.remove();
-            showToast(`${savedCount} produk berhasil ditambahkan ke kategori!`);
-            
-            // Refresh tampilan
-            render();
-        }
-
-        // ==================== PRODUCT MODALS ====================
-        function showAddProductModal() {
-            if (!currentCatalogId) {
-                alert('Buka kategori terlebih dahulu');
-                return;
-            }
-            
-            const cat = catalogs.find(c => c.id === currentCatalogId);
-            
-            const modalHTML = `
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h3 class="text-xl font-extrabold">Tambah Produk Baru</h3>
-                            <p class="text-sm text-pink-500">${cat ? cat.name : ''}</p>
-                        </div>
-                        <button onclick="showBulkUploadModal(); this.closest('.fixed').remove();" 
-                                class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-bold rounded-2xl shadow active:scale-95">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Bulk Upload</span>
-                        </button>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Nama Produk</label>
-                            <input id="prod-name" type="text" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400" placeholder="Contoh: Chocolate Fudge Cake">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Keywords (pisahkan dengan koma)</label>
-                            <input id="prod-keywords" type="text" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400" placeholder="chocolate, birthday, premium">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Foto Produk</label>
-                            <div class="border border-dashed border-pink-200 rounded-2xl p-4 text-center">
-                                <input type="file" id="prod-image" accept="image/*" class="hidden" onchange="previewImage(this)">
-                                <button onclick="document.getElementById('prod-image').click()" 
-                                        class="px-5 py-2.5 bg-pink-100 text-pink-600 rounded-2xl text-sm font-bold flex items-center gap-2 mx-auto">
-                                    <i class="fas fa-upload"></i> 
-                                    <span>Pilih Gambar</span>
-                                </button>
-                                <div id="image-preview" class="mt-3 hidden">
-                                    <img id="preview-img" class="max-h-40 mx-auto rounded-2xl shadow">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3.5 border border-gray-200 rounded-2xl font-bold text-gray-600">Batal</button>
-                        <button onclick="saveNewProduct(this)" class="flex-1 py-3.5 bg-pink-500 text-white rounded-2xl font-bold">Simpan Produk</button>
-                    </div>
-                </div>
-            `;
-            
-            createModal(modalHTML);
-        }
-
-        let selectedImageBase64 = null;
-
-        function previewImage(input) {
-            const previewContainer = document.getElementById('image-preview');
-            const previewImg = document.getElementById('preview-img');
-            
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImg.src = e.target.result;
-                    previewContainer.classList.remove('hidden');
-                    selectedImageBase64 = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        async function saveNewProduct(btn) {
-            const name = document.getElementById('prod-name').value.trim();
-            const keywordsStr = document.getElementById('prod-keywords').value.trim();
-            
-            if (!name) {
-                alert('Nama produk wajib diisi!');
-                return;
-            }
-            
-            if (!selectedImageBase64) {
-                alert('Silakan upload gambar produk!');
-                return;
-            }
-            
-            const keywords = keywordsStr ? keywordsStr.split(',').map(k => k.trim()).filter(Boolean) : [];
-            
-            const newProduct = {
-                id: 'p' + Date.now(),
-                catalogId: currentCatalogId,
-                name: name,
-                image: selectedImageBase64,
-                keywords: keywords
-            };
-            
-            await addProduct(newProduct);
-            selectedImageBase64 = null;
-            btn.closest('.fixed').remove();
-            showToast('Produk berhasil ditambahkan');
-        }
-
-        function showEditProductModal(id) {
-            const prod = products.find(p => p.id === id);
-            if (!prod) return;
-
-            selectedImageBase64 = prod.image;
-
-            const modal = createModal(`
-                <div class="p-6">
-                    <h3 class="text-xl font-extrabold mb-5">Edit Produk</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Nama Produk</label>
-                            <input id="edit-prod-name" type="text" value="${prod.name}" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Keywords</label>
-                            <input id="edit-prod-keywords" type="text" value="${prod.keywords ? prod.keywords.join(', ') : ''}" class="w-full border border-pink-200 rounded-2xl px-4 py-3 focus:outline-none focus:border-pink-400">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-1.5">Ganti Foto (opsional)</label>
-                            <div class="border border-dashed border-pink-200 rounded-2xl p-4">
-                                <input type="file" id="edit-prod-image" accept="image/*" class="hidden" onchange="previewEditImage(this)">
-                                <div class="flex items-center gap-4">
-                                    <button onclick="document.getElementById('edit-prod-image').click()" 
-                                            class="px-4 py-2 bg-pink-100 text-pink-600 rounded-2xl text-sm font-bold flex items-center gap-2">
-                                        <i class="fas fa-upload"></i> <span>Ganti Gambar</span>
-                                    </button>
-                                    
-                                    <div id="edit-image-preview" class="flex-1">
-                                        <img src="${prod.image}" class="h-16 w-16 object-cover rounded-xl border" onerror="this.src='https://picsum.photos/id/292/600/600'">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <button onclick="confirmDeleteProduct('${id}'); this.closest('.fixed').remove();" 
-                                class="flex-1 py-3.5 border border-red-200 text-red-500 rounded-2xl font-bold">Hapus</button>
-                        <button onclick="saveEditProduct('${id}', this)" 
-                                class="flex-1 py-3.5 bg-pink-500 text-white rounded-2xl font-bold">Simpan</button>
-                    </div>
-                </div>
-            `);
-        }
-
-        function previewEditImage(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    selectedImageBase64 = e.target.result;
-                    const previewDiv = document.getElementById('edit-image-preview');
-                    previewDiv.innerHTML = `<img src="${e.target.result}" class="h-16 w-16 object-cover rounded-xl border">`;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        async function saveEditProduct(id, btn) {
-            const name = document.getElementById('edit-prod-name').value.trim();
-            const keywordsStr = document.getElementById('edit-prod-keywords').value.trim();
-            const keywords = keywordsStr ? keywordsStr.split(',').map(k => k.trim()).filter(Boolean) : [];
-            
-            if (!name) return alert('Nama produk wajib diisi!');
-            
-            const updates = {
-                name: name,
-                keywords: keywords
-            };
-            
-            if (selectedImageBase64 && selectedImageBase64 !== products.find(p => p.id === id).image) {
-                updates.image = selectedImageBase64;
-            }
-            
-            await updateProduct(id, updates);
-            selectedImageBase64 = null;
-            btn.closest('.fixed').remove();
-            showToast('Produk berhasil diperbarui');
-        }
-
-        function confirmDeleteProduct(id) {
-            if (!confirm('Yakin ingin menghapus produk ini?')) return;
-            
-            deleteProduct(id);
-            showToast('Produk berhasil dihapus');
-        }
-
-        // ==================== UTILITY ====================
-        function createModal(content) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black/60 flex items-end sm:items-center justify-center z-[80]';
-            modal.innerHTML = `
-                <div class="bg-white w-full max-w-md sm:mx-4 sm:rounded-3xl overflow-hidden modal">
-                    ${content}
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            modal.onclick = function(e) {
-                if (e.target === modal) modal.remove();
-            };
-            
-            return modal;
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const text = document.getElementById('toast-text');
-            
-            text.textContent = message;
-            toast.classList.remove('hidden');
-            toast.style.display = 'flex';
-            
-            setTimeout(() => {
-                toast.style.transition = 'all 0.3s ease';
-                toast.style.opacity = '0';
-                
-                setTimeout(() => {
-                    toast.style.opacity = '1';
-                    toast.style.transition = '';
-                    toast.style.display = 'none';
-                    toast.classList.add('hidden');
-                }, 300);
-            }, 2400);
-        }
-
-        function showBranchModal() {
-            const modal = createModal(`
-                <div class="p-6 text-center">
-                    <div class="w-16 h-16 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fab fa-whatsapp text-emerald-500 text-4xl"></i>
-                    </div>
-                    
-                    <h3 class="text-2xl font-extrabold mb-2">Hubungi Cabang</h3>
-                    <p class="text-gray-500 mb-5">Pilih cabang terdekat untuk pemesanan</p>
-                    
-                    <div class="space-y-2.5 text-left max-h-[320px] overflow-y-auto pr-1">
-                        <div onclick="contactWhatsApp('0811870139')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Krendang</div>
-                                <div class="text-xs text-emerald-600 font-mono">0811-8701-39</div>
-                            </div>
-                        </div>
-                        
-                        <div onclick="contactWhatsApp('0819858385')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Jelambar</div>
-                                <div class="text-xs text-emerald-600 font-mono">0819-8583-85</div>
-                            </div>
-                        </div>
-                        
-                        <div onclick="contactWhatsApp('081905128424')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Tanah Pasir</div>
-                                <div class="text-xs text-emerald-600 font-mono">0819-0512-8424</div>
-                            </div>
-                        </div>
-                        
-                        <div onclick="contactWhatsApp('081905128446')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Pademangan</div>
-                                <div class="text-xs text-emerald-600 font-mono">0819-0512-8446</div>
-                            </div>
-                        </div>
-                        
-                        <div onclick="contactWhatsApp('08176886777')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Jembatan Besi</div>
-                                <div class="text-xs text-emerald-600 font-mono">0817-6886-777</div>
-                            </div>
-                        </div>
-                        
-                        <div onclick="contactWhatsApp('081196991117')" class="flex items-center gap-3 p-3.5 border border-emerald-100 rounded-2xl hover:bg-emerald-50 active:bg-emerald-100 cursor-pointer transition-colors">
-                            <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-store text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-sm">Cabang Bekasi</div>
-                                <div class="text-xs text-emerald-600 font-mono">0811-9699-1117</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button onclick="this.closest('.fixed').remove()" class="mt-5 w-full py-3 text-sm font-bold text-gray-400 hover:text-gray-500">Tutup</button>
-                </div>
-            `);
-        }
-
-        function contactWhatsApp(number) {
-            const message = encodeURIComponent("Halo Sinacake, saya tertarik dengan produk di katalog. Boleh minta info lebih lanjut?");
-            window.open(`https://wa.me/${number}?text=${message}`, '_blank');
-        }
-
-        // ==================== IMAGE PREVIEW LIGHTBOX (Zoom + Download) ====================
-        function showImagePreview(imageSrc, productName) {
-            let scale = 1;
-            const lightbox = document.createElement('div');
-            lightbox.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[90]';
-            lightbox.innerHTML = `
-                <div class="relative w-full h-full flex flex-col">
-                    <!-- Top Bar -->
-                    <div class="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/70 to-transparent">
-                        <div class="text-white">
-                            <div class="font-bold text-lg">${productName || 'Preview Gambar'}</div>
-                            <div class="text-xs text-white/70">Ketuk gambar untuk zoom • Geser untuk melihat</div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button id="zoom-out" class="w-10 h-10 bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white transition-colors">
-                                <i class="fas fa-search-minus text-lg"></i>
-                            </button>
-                            <button id="zoom-in" class="w-10 h-10 bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white transition-colors">
-                                <i class="fas fa-search-plus text-lg"></i>
-                            </button>
-                            <button id="download-btn" class="flex items-center gap-2 px-4 h-10 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 rounded-full text-white text-sm font-bold transition-colors">
-                                <i class="fas fa-download"></i>
-                                <span class="hidden sm:inline">Download</span>
-                            </button>
-                            <button id="close-lightbox" class="w-10 h-10 bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white transition-colors">
-                                <i class="fas fa-times text-xl"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Image Container -->
-                    <div class="flex-1 flex items-center justify-center overflow-hidden p-4 pt-20" style="touch-action: none;">
-                        <img id="lightbox-img" src="${imageSrc}" 
-                             class="max-w-[95%] max-h-[80vh] object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing transition-transform duration-100 select-none"
-                             style="transform: scale(1);"
-                             onerror="this.src='https://picsum.photos/id/292/800/800'">
-                    </div>
-
-                    <!-- Bottom hint -->
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs flex items-center gap-2">
-                        <i class="fas fa-hand-paper"></i>
-                        <span>Drag untuk menggeser • +/- untuk zoom</span>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(lightbox);
-
-            const img = lightbox.querySelector('#lightbox-img');
-            const zoomInBtn = lightbox.querySelector('#zoom-in');
-            const zoomOutBtn = lightbox.querySelector('#zoom-out');
-            const downloadBtn = lightbox.querySelector('#download-btn');
-            const closeBtn = lightbox.querySelector('#close-lightbox');
-
-            // Zoom functions
-            function updateZoom() {
-                img.style.transform = `scale(${scale})`;
-            }
-
-            zoomInBtn.onclick = () => {
-                scale = Math.min(scale + 0.25, 4);
-                updateZoom();
-            };
-
-            zoomOutBtn.onclick = () => {
-                scale = Math.max(scale - 0.25, 0.5);
-                updateZoom();
-            };
-
-            // Mouse wheel zoom
-            img.onwheel = (e) => {
-                e.preventDefault();
-                if (e.deltaY < 0) {
-                    scale = Math.min(scale + 0.2, 4);
-                } else {
-                    scale = Math.max(scale - 0.2, 0.5);
-                }
-                updateZoom();
-            };
-
-            // Drag to pan (simple implementation)
-            let isDragging = false;
-            let startX = 0, startY = 0, currentX = 0, currentY = 0;
-
-            img.onmousedown = (e) => {
-                isDragging = true;
-                startX = e.clientX - currentX;
-                startY = e.clientY - currentY;
-                img.style.cursor = 'grabbing';
-            };
-
-            document.onmousemove = (e) => {
-                if (!isDragging) return;
-                currentX = e.clientX - startX;
-                currentY = e.clientY - startY;
-                img.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
-            };
-
-            document.onmouseup = () => {
-                isDragging = false;
-                img.style.cursor = 'grab';
-            };
-
-            // Touch support for mobile
-            let touchStartX = 0, touchStartY = 0;
-            img.ontouchstart = (e) => {
-                if (e.touches.length === 1) {
-                    isDragging = true;
-                    touchStartX = e.touches[0].clientX - currentX;
-                    touchStartY = e.touches[0].clientY - currentY;
-                }
-            };
-            img.ontouchmove = (e) => {
-                if (!isDragging || e.touches.length !== 1) return;
-                currentX = e.touches[0].clientX - touchStartX;
-                currentY = e.touches[0].clientY - touchStartY;
-                img.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
-            };
-            img.ontouchend = () => { isDragging = false; };
-
-            // Download
-            downloadBtn.onclick = () => {
-                const link = document.createElement('a');
-                link.href = imageSrc;
-                const safeName = (productName || 'produk').replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                link.download = `${safeName}.jpg`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            };
-
-            // Close handlers
-            closeBtn.onclick = () => lightbox.remove();
-            lightbox.onclick = (e) => {
-                if (e.target === lightbox) lightbox.remove();
-            };
-
-            // Keyboard support
-            const keyHandler = (e) => {
-                if (e.key === 'Escape') {
-                    lightbox.remove();
-                    document.removeEventListener('keydown', keyHandler);
-                }
-                if (e.key === '+' || e.key === '=') {
-                    scale = Math.min(scale + 0.25, 4);
-                    updateZoom();
-                }
-                if (e.key === '-') {
-                    scale = Math.max(scale - 0.25, 0.5);
-                    updateZoom();
-                }
-            };
-            document.addEventListener('keydown', keyHandler);
-
-            // Clean up on remove
-            lightbox.addEventListener('remove', () => {
-                document.removeEventListener('keydown', keyHandler);
-            }, { once: true });
-        }
-
-        // ==================== BEAUTIFUL ADMIN LOGIN MODAL ====================
-        function showAdminLoginModal() {
-            if (isAdminMode) {
-                if (confirm('Nonaktifkan mode admin?')) {
-                    isAdminMode = false;
-                    const badge = document.getElementById('admin-badge');
-                    badge.classList.add('hidden');
-                    badge.classList.remove('flex');
-                    render();
-                }
-                return;
-            }
-
-            const loginModal = document.createElement('div');
-            loginModal.className = 'fixed inset-0 bg-black/60 flex items-center justify-center z-[85]';
-            loginModal.innerHTML = `
-                <div class="bg-white w-full max-w-sm mx-4 rounded-3xl overflow-hidden modal shadow-2xl">
-                    <div class="bg-gradient-to-br from-pink-500 via-rose-500 to-pink-600 p-8 text-center text-white relative">
-                        <div class="w-20 h-20 mx-auto bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mb-4">
-                            <i class="fas fa-user-shield text-4xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-extrabold">Mode Admin</h3>
-                        <p class="text-white/80 text-sm mt-1">Akses khusus untuk mengelola katalog</p>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-gray-600 mb-2">Password Admin</label>
-                            <div class="relative">
-                                <input id="admin-password" type="password" 
-                                       class="w-full border border-pink-200 focus:border-pink-500 rounded-2xl px-4 py-3.5 text-lg tracking-widest focus:outline-none"
-                                       placeholder="••••••••••" autocomplete="off">
-                                <button onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password'" 
-                                        class="absolute right-4 top-4 text-pink-300 hover:text-pink-500">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button onclick="verifyAdminPassword(this)" 
-                                class="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold rounded-2xl flex items-center justify-center gap-3 text-lg shadow-xl active:scale-[0.985] transition-all">
-                            <i class="fas fa-unlock-alt"></i>
-                            <span>Masuk ke Mode Admin</span>
-                        </button>
-                        
-                        <div class="text-center mt-4">
-                            <button onclick="this.closest('.fixed').remove()" 
-                                    class="text-sm text-gray-400 hover:text-gray-500 font-medium">Batal</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(loginModal);
-            
-            // Focus password input
-            setTimeout(() => {
-                const input = loginModal.querySelector('#admin-password');
-                if (input) input.focus();
-            }, 300);
-            
-            // Enter key support
-            loginModal.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const btn = loginModal.querySelector('button[onclick*="verifyAdminPassword"]');
-                    if (btn) btn.click();
-                }
-            });
-        }
-
-        function verifyAdminPassword(btn) {
-            const input = btn.closest('.fixed').querySelector('#admin-password');
-            const pass = input ? input.value : '';
-            
-            if (pass === "Admin") {
-                isAdminMode = true;
-                const badge = document.getElementById('admin-badge');
-                badge.classList.remove('hidden');
-                badge.classList.add('flex');
-                btn.closest('.fixed').remove();
-                showToast('Selamat datang, Admin! Mode edit aktif.');
-                render();
-            } else {
-                input.classList.add('border-red-500', 'animate-shake');
-                setTimeout(() => {
-                    input.classList.remove('border-red-500', 'animate-shake');
-                    input.value = '';
-                    input.focus();
-                }, 600);
-            }
-        }
-
-        // Add shake animation
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                20%, 60% { transform: translateX(-6px); }
-                40%, 80% { transform: translateX(6px); }
-            }
-            .animate-shake { animation: shake 0.4s ease-in-out; }
-        `;
-        document.head.appendChild(style);
-
-        // ==================== ADMIN MODE (CLICK HEADER STILL WORKS) ====================
-        function onHeaderClick() {
-            const now = Date.now();
-            
-            if (now - lastHeaderClickTime < 600) {
-                headerClickCount++;
-            } else {
-                headerClickCount = 1;
-            }
-            lastHeaderClickTime = now;
-
-            // 3 kali klik logo = masuk admin (cara baru yang lebih simpel)
-            if (headerClickCount >= 3) {
-                headerClickCount = 0;
-
-                if (!isAdminMode) {
-                    showAdminLoginModal(); // pakai modal cantik
-                } else {
-                    if (confirm('Nonaktifkan mode admin?')) {
-                        isAdminMode = false;
-                        const badge = document.getElementById('admin-badge');
-                        badge.classList.add('hidden');
-                        badge.classList.remove('flex');
-                        render();
-                    }
-                }
-            }
-        }
-
-        // ==================== EXPORT / IMPORT ====================
-        async function exportData() {
-            const data = {
-                catalogs: catalogs,
-                products: products,
-                exportedAt: new Date().toISOString(),
-                version: "2.0"
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sinacake-backup-${new Date().toISOString().slice(0,10)}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showToast('Data berhasil diexport!');
-        }
-
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = async function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-                
-                const reader = new FileReader();
-                reader.onload = async function(ev) {
-                    try {
-                        const imported = JSON.parse(ev.target.result);
-                        
-                        if (!imported.catalogs || !imported.products) {
-                            throw new Error('Format file tidak valid');
-                        }
-                        
-                        if (confirm(`Import ${imported.catalogs.length} kategori dan ${imported.products.length} produk?\nData lama akan ditimpa.`)) {
-                            catalogs = imported.catalogs;
-                            products = imported.products;
-                            
-                            await saveToStore('catalogs', catalogs);
-                            await saveToStore('products', products);
-                            
-                            render();
-                            showToast('Data berhasil diimport!');
-                        }
-                    } catch (err) {
-                        alert('Gagal import: ' + err.message);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-
-        // ==================== INITIALIZE ====================
-        async function initialize() {
-            await openDB();
-            await loadData();
-            
-            const container = document.getElementById('main-content');
-            renderHomeCatalogs(container);
-            
-            setTimeout(() => {
-                if (!localStorage.getItem('sinacake_welcome_shown_v2')) {
-                    localStorage.setItem('sinacake_welcome_shown_v2', 'true');
-                }
-            }, 1500);
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === "/") {
-                    e.preventDefault();
-                    if (!isAdminMode) {
-                        const pass = prompt("Password admin:");
-                        if (pass === "Admin") {
-                            isAdminMode = true;
-                            const badge = document.getElementById('admin-badge');
-                            badge.classList.remove('hidden');
-                            badge.classList.add('flex');
-                            render();
-                            showToast('Mode Admin aktif via shortcut');
-                        }
-                    }
-                }
-            });
-            
-            console.log('%c[Sinacake] Aplikasi berhasil dimuat dengan IndexedDB + Migration!', 'color:#FF69B4');
-        }
-
-        window.onload = initialize;
         
-        window.Sinacake = {
-            exportData: () => exportData(),
-            importData: () => importData(),
-            clearAllData: async () => {
-                if (confirm('HAPUS SEMUA DATA?')) {
-                    await saveToStore('catalogs', []);
-                    await saveToStore('products', []);
-                    localStorage.clear();
-                    location.reload();
-                }
-            },
-            showAdmin: () => {
-                isAdminMode = true;
-                document.getElementById('admin-badge').classList.remove('hidden');
-                document.getElementById('admin-badge').classList.add('flex');
-                render();
+        // Panggil render saat awal load
+        renderBranchButtons();
+
+        // Buka Pop-up (Modal)
+        function openModal(modalId, orderType = '') {
+            if (modalId === 'branchModal') {
+                currentOrderType = orderType;
             }
-        };
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // Tutup Pop-up (Modal)
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Redirect ke WhatsApp dengan Pesan Otomatis
+        function sendToWhatsApp(phone, branchName) {
+            let message = '';
+            if (currentOrderType === 'custom') {
+                message = `Halo Admin Sina Cake ${branchName}, saya ingin bertanya mengenai pemesanan Custom Cake.`;
+            } else if (currentOrderType === 'ready') {
+                message = `Halo Admin Sina Cake ${branchName}, saya ingin menanyakan ketersediaan varian Ready Cake hari ini.`;
+            } else {
+                message = `Halo Admin Sina Cake ${branchName}, saya ingin bertanya informasi lebih lanjut.`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const waLink = `https://wa.me/${phone}?text=${encodedMessage}`;
+            
+            // Buka tab WA
+            window.open(waLink, '_blank');
+            closeModal('branchModal');
+        }
+
+        // Fitur Bagikan Website
+        function shareWebsite() {
+            const targetUrl = 'https://sinacaketeam-design.github.io/Link-Bio/';
+            const shareData = {
+                title: 'Sina Cake | Link in Bio',
+                text: 'Kue Ulang Tahun Jakarta Bekasi. Makanan & Minuman Cake Spesialist! 🎂',
+                url: targetUrl
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Sukses membagikan web'))
+                    .catch((err) => console.log('Gagal membagikan:', err));
+            } else {
+                // Fallback untuk browser PC lama (Copy URL)
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = targetUrl;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                
+                // Pesan Pop-up
+                const popup = document.createElement('div');
+                popup.innerText = "Link berhasil disalin ke clipboard!";
+                popup.className = "fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm z-50 modal-animate";
+                document.body.appendChild(popup);
+                
+                setTimeout(() => { popup.remove(); }, 3000);
+            }
+        }
+
+        // Tutup Modal jika area gelap di luar modal di-klik
+        window.onclick = function(event) {
+            const branchModal = document.getElementById('branchModal');
+            const faqModal = document.getElementById('faqModal');
+            
+            if (event.target === branchModal) {
+                closeModal('branchModal');
+            }
+            if (event.target === faqModal) {
+                closeModal('faqModal');
+            }
+        }
     </script>
 </body>
 </html>
