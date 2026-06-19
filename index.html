@@ -341,30 +341,47 @@
         // Setup ID App Firebase
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'sinacake-bio-v1';
         
-        // Inisialisasi Firebase (jika config tersedia dari environment)
-        const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-        if (firebaseConfigStr) {
-            try {
-                const firebaseConfig = JSON.parse(firebaseConfigStr);
-                const app = initializeApp(firebaseConfig);
-                auth = getAuth(app);
-                db = getFirestore(app);
+        // --- KONFIGURASI FIREBASE ---
+        const canvasConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        let firebaseConfig;
 
-                const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-                initAuth();
-                
-                onAuthStateChanged(auth, user => {
-                    currentUser = user;
-                });
-            } catch (e) {
-                console.error("Gagal menginisialisasi Firebase:", e);
-            }
+        if (canvasConfigStr) {
+            // Gunakan database Canvas (Hanya untuk preview di sini)
+            firebaseConfig = JSON.parse(canvasConfigStr);
+        } else {
+            // ========================================================
+            // CONFIG FIREBASE MILIK SINA CAKE
+            // ========================================================
+            firebaseConfig = {
+                apiKey: "AIzaSyClGxufzp4PjWH1VYgIy0c721iNZfqmI7E",
+                authDomain: "linkbio-38e58.firebaseapp.com",
+                projectId: "linkbio-38e58",
+                storageBucket: "linkbio-38e58.firebasestorage.app",
+                messagingSenderId: "500372817938",
+                appId: "1:500372817938:web:d835604b8c3fb94b4fb0cb",
+                measurementId: "G-53RQ7QSBQD"
+            };
+        }
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+
+            const initAuth = async () => {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            };
+            initAuth();
+            
+            onAuthStateChanged(auth, user => {
+                currentUser = user;
+            });
+        } catch (e) {
+            console.error("Gagal menginisialisasi Firebase:", e);
         }
 
         // --- SISTEM PELACAKAN (TRACKING) ---
