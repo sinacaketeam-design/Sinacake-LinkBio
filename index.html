@@ -624,6 +624,26 @@
         // Render tombol cabang awal
         window.renderBranchButtons();
 
-    </script>
+    </// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyClGxufzp4PjWH1VYgIy0c721iNZfqmI7E",
+  authDomain: "linkbio-38e58.firebaseapp.com",
+  projectId: "linkbio-38e58",
+  storageBucket: "linkbio-38e58.firebasestorage.app",
+  messagingSenderId: "500372817938",
+  appId: "1:500372817938:web:d835604b8c3fb94b4fb0cb",
+  measurementId: "G-53RQ7QSBQD"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);>
 </body>
 </html>
